@@ -1,0 +1,20 @@
+name: SimpleXrayDetector
+version: 1.0.1
+main: org.example.SimpleXrayDetector
+api-version: 1.21.4
+description:
+author: brokolnn
+commands:
+  suspiciousscore:
+    description: "Показывает текущий уровень подозрительности."
+    usage: /suspiciousscore [nickname]
+  resetsuspiciousscore:
+    description: "Обнуляет счетчик подозрительности."
+    usage: /resetsuspiciousscore [nickname]
+  lastdiamond:
+    description: "Показывает время с последнего вскопанного алмаза указанного игрока."
+    usage: /lastdiamond [nickname]
+permissions:
+  simplexraydetector.admin:
+    description: "Позволяет просматривать счетчик подозрительности других игроков."
+    default: op
