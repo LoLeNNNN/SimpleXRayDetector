@@ -28,7 +28,7 @@ public class CurrentSuspiciousScoreCommand implements CommandExecutor {
         if (args.length == 0) {
             UUID playerId = player.getUniqueId();
             long score = eventHandler.getCurrentSuspiciousScore(playerId);
-            player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            player.sendMessage(ChatColor.RED + "Usage: /suspicious <nickname>.");
             return true;
         }
 
@@ -53,7 +53,7 @@ public class CurrentSuspiciousScoreCommand implements CommandExecutor {
             }
         }
 
-        player.sendMessage(ChatColor.DARK_GREEN + "Suspicious score of player  " + targetPlayerName + ": " + score);
+        player.sendMessage(ChatColor.DARK_GREEN + "Suspicious score of player " + targetPlayerName + ": " + score);
 
         return true;
     }

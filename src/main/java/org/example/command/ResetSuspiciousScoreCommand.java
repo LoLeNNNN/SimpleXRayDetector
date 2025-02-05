@@ -51,7 +51,7 @@ public class ResetSuspiciousScoreCommand implements CommandExecutor {
         }
 
         eventHandler.resetSuspiciousScore(targetPlayerId);
-        player.sendMessage(ChatColor.GREEN + "Suspicious score of player  " + targetPlayerName + " has been reset.");
+        player.sendMessage(ChatColor.GREEN + "Suspicious score of player " + targetPlayerName + " has been reset.");
 
         return true;
     }

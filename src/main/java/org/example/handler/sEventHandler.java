@@ -164,7 +164,7 @@ public class sEventHandler implements Listener {
             Map<String, Long> topPlayers = getTopSuspiciousPlayers(5);
 
             if (topPlayers.isEmpty()) {
-                player.sendMessage(ChatColor.YELLOW + "Suspicious top is empty.");
+                player.sendMessage(ChatColor.YELLOW + "no sus.");
             } else {
                 player.sendMessage(ChatColor.GOLD + "Top 5 suspicious players:");
                 int position = 1;

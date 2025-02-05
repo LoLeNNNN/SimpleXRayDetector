@@ -61,7 +61,7 @@ public class LastDiamondCommand implements CommandExecutor {
         long seconds = (timeSinceLastDiamond % (60 * 1000)) / 1000;
 
         player.sendMessage(ChatColor.GREEN + "Time since last mined diamond " +
-                targetPlayerName + + minutes + " minutes  " + seconds + " seconds.");
+                targetPlayerName + " " + minutes + " minutes " + seconds + " seconds.");
 
         return true;
     }
