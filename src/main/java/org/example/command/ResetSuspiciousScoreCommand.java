@@ -19,35 +19,30 @@ public class ResetSuspiciousScoreCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // Проверяем, что отправитель команды — игрок
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Эта команда доступна только игрокам.");
+            sender.sendMessage(ChatColor.RED + "Only 4 players.");
             return true;
         }
 
         Player player = (Player) sender;
 
-        // Проверяем права администратора
         if (!player.hasPermission("simplexraydetector.admin")) {
-            player.sendMessage(ChatColor.RED + "У вас нет прав для использования этой команды.");
+            player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             return true;
         }
 
-        // Определяем, для кого сбрасывать счетчик
         UUID targetPlayerId;
         String targetPlayerName;
 
         if (args.length == 0) {
-            // Если аргумент не указан, сбрасываем счетчик себе
             targetPlayerId = player.getUniqueId();
             targetPlayerName = player.getName();
         } else {
-            // Если указан ник игрока, сбрасываем счетчик для него
             String targetName = args[0];
             Player targetPlayer = Bukkit.getPlayer(targetName);
 
             if (targetPlayer == null) {
-                player.sendMessage(ChatColor.RED + "Игрок " + targetName + " не найден или не в сети.");
+                player.sendMessage(ChatColor.RED + "Player " + targetName + " not found.");
                 return true;
             }
 
@@ -55,9 +50,8 @@ public class ResetSuspiciousScoreCommand implements CommandExecutor {
             targetPlayerName = targetPlayer.getName();
         }
 
-        // Сбрасываем счетчик подозрительности
         eventHandler.resetSuspiciousScore(targetPlayerId);
-        player.sendMessage(ChatColor.GREEN + "Счетчик подозрительности игрока " + targetPlayerName + " обнулен.");
+        player.sendMessage(ChatColor.GREEN + "Suspicious score of player  " + targetPlayerName + " has been reset.");
 
         return true;
     }

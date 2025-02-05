@@ -2,19 +2,19 @@ name: SimpleXrayDetector
 version: 1.0.1
 main: org.example.SimpleXrayDetector
 api-version: 1.21.4
-description:
+description: Simple plugin that make you know, who is using x-ray.
 author: brokolnn
 commands:
   suspiciousscore:
-    description: "Показывает текущий уровень подозрительности."
+    description: "Show current suspicious score."
     usage: /suspiciousscore [nickname]
   resetsuspiciousscore:
-    description: "Обнуляет счетчик подозрительности."
+    description: "Reset someones suspicious score."
     usage: /resetsuspiciousscore [nickname]
   lastdiamond:
-    description: "Показывает время с последнего вскопанного алмаза указанного игрока."
+    description: "Show time since last dug diamond."
     usage: /lastdiamond [nickname]
 permissions:
   simplexraydetector.admin:
-    description: "Позволяет просматривать счетчик подозрительности других игроков."
+    description: "admin."
     default: op
