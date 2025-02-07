@@ -1,59 +1,48 @@
 package org.example.command;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.example.handler.sEventHandler;
-
-import java.util.UUID;
+import org.example.handler.LocaleManager;
 
 public class CurrentSuspiciousScoreCommand implements CommandExecutor {
     private final sEventHandler eventHandler;
-    public CurrentSuspiciousScoreCommand(sEventHandler eventHandler) {
+    private final LocaleManager localeManager;
+
+    public CurrentSuspiciousScoreCommand(sEventHandler eventHandler, LocaleManager localeManager) {
         this.eventHandler = eventHandler;
+        this.localeManager = localeManager;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only 4 players.");
+            sender.sendMessage("This command is available only for players.");
             return true;
         }
-
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            UUID playerId = player.getUniqueId();
-            long score = eventHandler.getCurrentSuspiciousScore(playerId);
-            player.sendMessage(ChatColor.RED + "Usage: /suspicious <nickname>.");
+            long score = eventHandler.getCurrentSuspiciousScore(player.getUniqueId());
+            player.sendMessage(localeManager.getMessage(player, "suspicious_score_self", score));
             return true;
         }
 
         if (!player.hasPermission("simplexraydetector.admin")) {
-            player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            player.sendMessage(localeManager.getMessage(player, "no_permission"));
             return true;
         }
 
         String targetPlayerName = args[0];
+        long score = eventHandler.getOfflineSuspiciousScore(targetPlayerName);
 
-        Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
-        long score;
-
-        if (targetPlayer != null) {
-            score = eventHandler.getCurrentSuspiciousScore(targetPlayer.getUniqueId());
+        if (score == -1) {
+            player.sendMessage(localeManager.getMessage(player, "player_not_found", targetPlayerName));
         } else {
-            score = eventHandler.getOfflineSuspiciousScore(targetPlayerName);
-
-            if (score == -1) {
-                player.sendMessage(ChatColor.RED + "Player" + targetPlayerName + " not found.");
-                return true;
-            }
+            player.sendMessage(localeManager.getMessage(player, "suspicious_score_other", targetPlayerName, score));
         }
-
-        player.sendMessage(ChatColor.DARK_GREEN + "Suspicious score of player " + targetPlayerName + ": " + score);
 
         return true;
     }

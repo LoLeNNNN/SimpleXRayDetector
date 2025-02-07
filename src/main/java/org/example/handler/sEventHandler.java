@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.example.handler.LocaleManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +21,10 @@ public class sEventHandler implements Listener {
     private final JavaPlugin plugin;
     private final File scoresFile;
     private final YamlConfiguration scoresConfig;
+    private final LocaleManager localeManager;
 
-    public sEventHandler(JavaPlugin plugin) {
+    public sEventHandler(JavaPlugin plugin, LocaleManager localeManager) {
+        this.localeManager = localeManager;
         this.plugin = plugin;
         this.scoresFile = new File(plugin.getDataFolder(), "suspicious_scores.yml");
         this.scoresConfig = YamlConfiguration.loadConfiguration(scoresFile);
@@ -164,12 +167,12 @@ public class sEventHandler implements Listener {
             Map<String, Long> topPlayers = getTopSuspiciousPlayers(5);
 
             if (topPlayers.isEmpty()) {
-                player.sendMessage(ChatColor.YELLOW + "no sus.");
+                player.sendMessage(localeManager.getMessage(player, "no_suspicious_players"));
             } else {
-                player.sendMessage(ChatColor.GOLD + "Top 5 suspicious players:");
+                player.sendMessage(localeManager.getMessage(player, "top_suspicious_players"));
                 int position = 1;
                 for (Map.Entry<String, Long> entry : topPlayers.entrySet()) {
-                    player.sendMessage(ChatColor.GREEN + "" + position + ". " + entry.getKey() + ": " + entry.getValue());
+                    player.sendMessage(localeManager.getMessage(player, "top_player_entry", position, entry.getKey(), entry.getValue()));
                     position++;
                 }
             }

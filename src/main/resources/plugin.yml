@@ -1,5 +1,5 @@
 name: SimpleXrayDetector
-version: 1.0.1
+version: 1.1
 main: org.example.SimpleXrayDetector
 api-version: 1.21.4
 description: Simple plugin that make you know, who is using x-ray.
